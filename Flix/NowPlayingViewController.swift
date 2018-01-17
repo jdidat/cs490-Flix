@@ -10,6 +10,8 @@ import UIKit
 import AlamofireImage
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
+    
+    let alertController = UIAlertController(title: "Cannot fetch movies", message: "It appears that your internet connection has been lost", preferredStyle: .alert)
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -49,15 +51,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
                 self.movies = movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
-//                for movie in movies {
-//                    let title = movie["title"] as! String
-//                    print(title)
-//                }
-                
-                // TODO: Get the array of movies
-                // TODO: Store the movies in a property to use elsewhere
-                // TODO: Reload your table view data
-                
+                for movie in movies {
+                   print(movie)
+                }
             }
         }
         task.resume()
@@ -69,6 +65,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        //let rating = movie["rating"] as! String
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         let posterPathString = movie["poster_path"] as! String
