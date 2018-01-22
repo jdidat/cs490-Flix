@@ -60,37 +60,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
+# Lab 2 - *Name
 
-# Project 2 - Flix pt 2
-
-Flix pt 2 is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Name of your app** is a photo browsing app app using the [The Tumblr API](https://www.tumblr.com/docs/en/api/v2#posts).
 
 Time spent: **X** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is completed:
+The following **required** user stories are complete:
 
-- [x] User can tap a cell to see a detail view (+5pts)
-- [x] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView (+5pts)
+- [ ] User can tab an image to view a larger image in a detail view (5pts)
 
-The following **optional** features are implemented:
+The following **optional** user stories are implemented:
 
-- [ ] User can tap a poster in the collection view to see a detail screen of that movie (+3pts)
-- [ ] In the detail view, when the user taps the poster, a new screen is presented modally where they can view the trailer (+3pts)
-- [ ] Customize the navigation bar (+1pt)
-- [ ] List in any optionals you didn't finish from last week (+1-3pts)
-   - ...
-   - ...
+- [ ] Add Avatar and Publish Dates (+2pt)
+- [ ] Zoomable Photo View (+2pt)
+- [ ] Infinite Scrolling (+2pt)
 
-The following **additional** features are implemented:
+The following **additional** user stories are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [ ] List anything else that you can get done to improve the app functionality! (+1-3pts)
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. How can we implement a possible search function?
-2. How can we implement ways to sort movies
+1.
+2.
 
 ## Video Walkthrough
 
@@ -106,7 +101,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [2018] [jdidat]
+    Copyright [yyyy] [name of copyright owner]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
