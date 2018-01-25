@@ -92,9 +92,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 self.filteredMovies = self.movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
-                for movie in movies {
-                   print(movie)
-                }
+//                for movie in movies {
+//                   print(movie)
+//                }
             }
         }
         task.resume()
