@@ -7,6 +7,8 @@ target 'Flix' do
 
   # Pods for Flix
 	pod 'AlamofireImage', '~> 3.1'
+	pod 'Cosmos', '~> 13.0'
+  	pod 'iTunesSearchAPI'
   target 'FlixTests' do
     inherit! :search_paths
     # Pods for testing
