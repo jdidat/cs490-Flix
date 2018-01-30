@@ -34,6 +34,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         tableView.insertSubview(refreshControl, at: 0)
         // Do any additional setup after loading the view.
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
         fetchMovies()
     }
     

@@ -52,16 +52,19 @@ class DetailViewController: UIViewController {
                     if let tagline = dataDictionary["tagline"] as? String {
                         self.taglineLabel.text = tagline
                     }
+                    let movie_genres = dataDictionary["genres"] as! [[String: Any]]
+//                    print(movie_genres)
+                    self.genreLabel.text = "";
+                    for genre in movie_genres {
+                        if let genre = genre["name"] as? String{
+                            self.genreLabel.text = self.genreLabel.text! + genre + ", "
+                        }
+                    }
+                    self.genreLabel.text = String(self.genreLabel.text!.dropLast(2))
                 }
             }
             
             task.resume()
-            //            if let genres = movie["genres"] as? [[String: Any]] {
-//                for genre in genres {
-//                    print(genre["name"])
-//                }
-//            }
-
             ratingLabel.rating = rating
             ratingLabel.settings.fillMode = .precise
             
