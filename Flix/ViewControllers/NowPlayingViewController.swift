@@ -20,9 +20,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [[String: Any]] = []
-    var filteredMovies: [[String: Any]] = []
+    //var movies: [[String: Any]] = []
+    //var filteredMovies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+    
+    var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +52,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredMovies = searchText.isEmpty ? movies: movies.filter { (item: [String: Any]) -> Bool in
-            return (item["title"] as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        filteredMovies = searchText.isEmpty ? movies: movies.filter { (item: Movie) -> Bool in
+            return (item.title as! String).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
         self.tableView.reloadData()
     }
@@ -80,45 +83,34 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     func fetchMovies() {
         activityIndicator.startAnimating()
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task = session.dataTask(with: request) { (data, response, error) in
-            // This will run when the network request returns
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let data = data {
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movies = dataDictionary["results"] as! [[String: Any]]
+        MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
                 self.movies = movies
                 self.filteredMovies = self.movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
-//                for movie in movies {
-//                   print(movie)
-//                }
+                self.activityIndicator.stopAnimating()
             }
         }
-        task.resume()
-        activityIndicator.stopAnimating()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
+        cell.movie = movies[indexPath.row]
+        cell.selectionStyle = .none
         let movie = self.filteredMovies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        var rating = movie["vote_average"] as! Double
-        rating = rating / 2.0
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        cell.ratingLabel.rating = rating
+//        let title = movie["title"] as! String
+//        let overview = movie["overview"] as! String
+//        var rating = movie["vote_average"] as! Double
+//        rating = rating / 2.0
+//        cell.titleLabel.text = title
+//        cell.overviewLabel.text = overview
+//        cell.ratingLabel.rating = rating
         cell.ratingLabel.settings.fillMode = .precise
         
         let placeholderURL = URL(string: "https://d32qys9a6wm9no.cloudfront.net/images/movies/poster/500x735.png")!
         cell.posterImageView.af_setImage(withURL: placeholderURL)
-        
-        let posterPathString = movie["poster_path"] as! String
+        let posterPathString = movie.posterPathString
         let baseURLString = "https://image.tmdb.org/t/p/w500"
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterImageView.af_setImage(withURL: posterURL)
